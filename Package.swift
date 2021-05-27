@@ -3,6 +3,11 @@
 
 import PackageDescription
 
+let baseURL: String = "https://github.com/extended-dev97/WingsPushSDK/releases/download/"
+let versionPackage: String = "2.4.31"
+let packageName = "WingsPushSDK.xcframework.zip"
+let checksum: String = "52f8aac4b26c37395371abaf9487171c1fd06a6d64341a1845d0a54598a20aae"
+
 let package = Package(
     name: "WingsPushSDK",
     platforms: [
@@ -20,6 +25,6 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .binaryTarget(name: "WingsPushSDK", url: "https://github.com/extended-dev97/WingsPushSDK/releases/download/2.4.3.1/WingsPushSDK.xcframework.zip", checksum: "52f8aac4b26c37395371abaf9487171c1fd06a6d64341a1845d0a54598a20aae"),
+        .binaryTarget(name: "WingsPushSDK", url: "\(baseURL)\(versionPackage)/\(packageName)", checksum: checksum),
     ]
 )
