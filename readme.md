@@ -24,7 +24,7 @@
 
 ### Добавление зависимости в проект:
 
-    1. Через cocoapods
+1.  Через cocoapods
 
 SDK добавляется через pod зависимость, как в основное приложение, так и в extension
 
@@ -49,7 +49,13 @@ target 'PushApp' do
 end
 ```
 
-    1. Путем добавления в проект файла WingsPushSDK.xcframework
+2.  Путем добавления в проект файла WingsPushSDK.xcframework
+    
+3.  Через Swift Package Manager
+
+```
+https://https://github.com/wingssoft/WingsPushSdkiOS_SPM/WingsPushSDK.git
+```
 
 ## Использование:
 В данном примере Wings Push Server расположен по адресу: `http://myserver.com:8080/myservice`. Для доступа исплользуются логин: `demologin`, пароль: `demopassword`. LogServer расположен по адресу: `http://mylogserver.com:8090/saveLogFile`
