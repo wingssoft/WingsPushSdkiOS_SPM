@@ -54,7 +54,7 @@ end
 3.  Через Swift Package Manager
 
 ```
-https://https://github.com/wingssoft/WingsPushSdkiOS_SPM/WingsPushSDK.git
+https://https://github.com/wingssoft/WingsPushSdkiOS_SPM.git
 ```
 
 ## Использование:
