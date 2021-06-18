@@ -9,15 +9,15 @@ let packageName = "WingsPushSDK.xcframework.zip"
 let checksum: String = "52f8aac4b26c37395371abaf9487171c1fd06a6d64341a1845d0a54598a20aae"
 
 let package = Package(
-    name: "WingsPushSDK",
+    name: "WingsPushSdkiOS_SPM",
     platforms: [
         .iOS(.v11)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "WingsPushSDK",
-            targets: ["WingsPushSDK"]),
+            name: "WingsPushSdkiOS_SPM",
+            targets: ["WingsPushSdkiOS_SPM"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -25,6 +25,6 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .binaryTarget(name: "WingsPushSDK", url: "\(baseURL)\(versionPackage)/\(packageName)", checksum: checksum),
+        .binaryTarget(name: "WingsPushSdkiOS_SPM", url: "\(baseURL)\(versionPackage)/\(packageName)", checksum: checksum),
     ]
 )
