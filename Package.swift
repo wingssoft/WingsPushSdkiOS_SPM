@@ -4,7 +4,7 @@
 import PackageDescription
 
 let baseURL: String = "https://github.com/wingssoft/WingsPushSdkiOS_SPM/releases/download/"
-let versionPackage: String = "2.4.31"
+let versionPackage: String = "2.4.32"
 let packageName = "WingsPushSDK.xcframework.zip"
 let checksum: String = "52f8aac4b26c37395371abaf9487171c1fd06a6d64341a1845d0a54598a20aae"
 
