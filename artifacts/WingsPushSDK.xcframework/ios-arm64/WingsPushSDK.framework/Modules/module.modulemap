@@ -1,0 +1,11 @@
+framework module WingsPushSDK {
+  umbrella header "WingsPushSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module WingsPushSDK.Swift {
+    header "WingsPushSDK-Swift.h"
+    requires objc
+}
