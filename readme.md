@@ -245,7 +245,7 @@ https://github.com/wingssoft/WingsPushSdkiOS_SPM.git
 
     #### Примечание: оба метода могут принимать параметр `with defaultAddress` - это "<deviceId>.<clientId>". Если приложение не выполнило метод subscribe, но при этом получает уведомления, то у приложения будет возможность отправить статус о доставке уведомления с этим адресом по умолчанию. Если приложение выполнило метод subscribe, то этот параметр будет игнорироваться.
 
-    * 	
+    *     
 
     #### Примеры:
     * Если вы используете didReceiveRemoteNotification для получения уведомлений (не рекомендуется для отправки статусов обычных уведомлений и рекомендуется для отправки статусов silent пушей)
@@ -391,37 +391,53 @@ https://github.com/wingssoft/WingsPushSdkiOS_SPM.git
 
 1. Модель локального хранилища
 
-	![storage model](images/storage-model.png)
+    ![storage model](images/storage-model.png)
+    
+    * Получение атрибутов сообщения
+    ```
+    message.messageAttributesLink?.classifierdId
+    message.messageAttributesLink?.messageDate
+    message.messageAttributesLink?.messageId
+    ```
 
 1. Удаление сообщений из локального хранилища
-	
-	* Все сообщения
-	```
-	sdk.removeAllMessages()
-	```
+    
+    * Все сообщения
+    ```
+    sdk.removeAllMessages()
+    ```
 
-	* По идентификатору
-	```
-	sdk.removeMessage(by: "someId")
-	```
+    * По идентификатору
+    ```
+    sdk.removeMessage(by: "someId")
+    ```
 
-	* По условию
-	```
-	sdk.removeMessage(predicate: NSPredicate(format: "title == %@", filter))
-	```
+    * По условию
+    ```
+    sdk.removeMessage(predicate: NSPredicate(format: "title == %@", filter))
+    ```
 
 1. Получение уведомлений
 
-	* По идентификатору
-	```
-	sdk.getMessageById(id: "someId") { (messageById) in
-	    if let message = messageById {
-		...
-	    }
-	}
-	```
+    * По идентификатору
+    ```
+    sdk.getMessageById(id: "someId") { (messageById) in
+        if let message = messageById {
+        ...
+        }
+    }
+    ```
+    
+    * По условию
+    ```
+    sdk.getMessageByPredicate(predicate: NSPredicate(format: "title == %@", filter)) { (messagesController) in
+        if let messages = messagesController {
+        ...
+        }
+    }
+    ```
 
-	* Получение объекта NSFetchedResultsController<Message>
-	```
-	sdk.getFetchedResultsController()
-	```
+    * Получение объекта NSFetchedResultsController<Message>
+    ```
+    sdk.getFetchedResultsController()
+    ```
