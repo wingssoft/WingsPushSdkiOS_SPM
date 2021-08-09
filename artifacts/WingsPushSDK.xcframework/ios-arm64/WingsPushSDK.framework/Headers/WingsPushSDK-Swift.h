@@ -281,6 +281,12 @@ SWIFT_CLASS_NAMED("Icon")
 @end
 
 
+SWIFT_CLASS("_TtC12WingsPushSDK10LogManager")
+@interface LogManager : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS_NAMED("Message")
 @interface Message : NSManagedObject
 @property (nonatomic, copy) NSString * _Nullable statusName;
@@ -382,18 +388,18 @@ SWIFT_CLASS_NAMED("Status")
 
 
 @interface Status (SWIFT_EXTENSION(WingsPushSDK))
-- (void)addMessageLinksObject:(Message * _Nonnull)value;
-- (void)removeMessageLinksObject:(Message * _Nonnull)value;
-- (void)addMessageLinks:(NSSet * _Nonnull)values;
-- (void)removeMessageLinks:(NSSet * _Nonnull)values;
-@end
-
-
-@interface Status (SWIFT_EXTENSION(WingsPushSDK))
 - (void)addMessageStatusLinksObject:(MessageStatus * _Nonnull)value;
 - (void)removeMessageStatusLinksObject:(MessageStatus * _Nonnull)value;
 - (void)addMessageStatusLinks:(NSSet * _Nonnull)values;
 - (void)removeMessageStatusLinks:(NSSet * _Nonnull)values;
+@end
+
+
+@interface Status (SWIFT_EXTENSION(WingsPushSDK))
+- (void)addMessageLinksObject:(Message * _Nonnull)value;
+- (void)removeMessageLinksObject:(Message * _Nonnull)value;
+- (void)addMessageLinks:(NSSet * _Nonnull)values;
+- (void)removeMessageLinks:(NSSet * _Nonnull)values;
 @end
 
 
