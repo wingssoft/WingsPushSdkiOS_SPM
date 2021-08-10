@@ -247,11 +247,6 @@ public protocol ExtraContentProtocol {
   var value: Swift.String? { get }
   var messageId: Swift.String? { get }
 }
-open class StandardErrorLogRecorder : WingsPushSDK.OutputStreamLogRecorder {
-  public init(formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = nil)
-  override public init(stream: Swift.UnsafeMutablePointer<Darwin.FILE>, formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = super)
-  @objc deinit
-}
 public enum LogSeverity : Swift.String, Swift.CaseIterable {
   case off
   case error
@@ -1204,11 +1199,6 @@ public struct ContentDownloadResult : Swift.Decodable {
   public func getErrorCode() -> Swift.Int
   public func getErrorDescription() -> Swift.String?
   public func getContent() -> Foundation.Data?
-}
-open class StandardOutputLogRecorder : WingsPushSDK.OutputStreamLogRecorder {
-  public init(formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = nil)
-  override public init(stream: Swift.UnsafeMutablePointer<Darwin.FILE>, formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = super)
-  @objc deinit
 }
 public struct LiteralLogFormatter : WingsPushSDK.LogFormatter {
   public let literal: Swift.String
