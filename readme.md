@@ -1,7 +1,7 @@
 # Wings Push SDK для iOS
 ## Интеграция с приложением
 ### Настройки приложения:
- - минимальная версия (iOS Depoloyment Target: 10.0)
+ - минимальная версия (iOS Depoloyment Target: 11.0)
  - Сapabilities:
     - Для основного приложения:
         - Push notifications: ON
