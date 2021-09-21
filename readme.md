@@ -29,7 +29,7 @@
 SDK добавляется через pod зависимость, как в основное приложение, так и в extension
 
 ```
-platform :ios, '10.0'
+platform :ios, '11.0'
 source 'https://bitbucket.org/wings-solutions/push-sdk-podspec.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
