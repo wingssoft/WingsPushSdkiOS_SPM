@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
 // swift-module-flags: -target arm64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name WingsPushSDK
 import Compression
 import CoreData
@@ -13,6 +13,7 @@ import SystemConfiguration
 import UIKit
 import UserNotifications
 @_exported import WingsPushSDK
+import _Concurrency
 import os.log
 import os
 import Darwin.C.stdio
@@ -60,9 +61,9 @@ public struct LogsErrorResponse : Swift.Codable {
   public func encode(to encoder: Swift.Encoder) throws
   public init(from decoder: Swift.Decoder) throws
 }
-extension Archive {
+extension WingsPushSDK.Archive {
   final public func addEntry(with path: Swift.String, relativeTo baseURL: Foundation.URL, compressionMethod: WingsPushSDK.CompressionMethod = .none, bufferSize: Swift.UInt32 = defaultWriteChunkSize, progress: Foundation.Progress? = nil) throws
-  final public func addEntry(with path: Swift.String, type: WingsPushSDK.Entry.EntryType, uncompressedSize: Swift.UInt32, modificationDate: Foundation.Date = Date(), permissions: Swift.UInt16? = nil, compressionMethod: WingsPushSDK.CompressionMethod = .none, bufferSize: Swift.UInt32 = defaultWriteChunkSize, progress: Foundation.Progress? = nil, provider: (Swift.Int, Swift.Int) throws -> Foundation.Data) throws
+  final public func addEntry(with path: Swift.String, type: WingsPushSDK.Entry.EntryType, uncompressedSize: Swift.UInt32, modificationDate: Foundation.Date = Date(), permissions: Swift.UInt16? = nil, compressionMethod: WingsPushSDK.CompressionMethod = .none, bufferSize: Swift.UInt32 = defaultWriteChunkSize, progress: Foundation.Progress? = nil, provider: (_ position: Swift.Int, _ size: Swift.Int) throws -> Foundation.Data) throws
   final public func remove(_ entry: WingsPushSDK.Entry, bufferSize: Swift.UInt32 = defaultReadChunkSize, progress: Foundation.Progress? = nil) throws
 }
 public struct PayloadMessageLogFormatter : WingsPushSDK.LogFormatter {
@@ -111,7 +112,6 @@ public struct LogSettings {
 }
 open class WingsLogConfiguration : WingsPushSDK.ConsoleLogConfiguration {
   public init(minimumSeverity: WingsPushSDK.LogSeverity = .info, infoMode: Swift.Bool = true, stdStreamsMode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode = .useAsFallback, showCallSite: Swift.Bool = false, filters: [WingsPushSDK.LogFilter] = [])
-  override public init(minimumSeverity: WingsPushSDK.LogSeverity = super, infoMode: Swift.Bool = super, stdStreamsMode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode = super, filters: [WingsPushSDK.LogFilter] = super, osLogFormatters: [WingsPushSDK.LogFormatter], stdoutFormatters: [WingsPushSDK.LogFormatter])
   @objc deinit
 }
 public protocol LogFormatter {
@@ -132,7 +132,7 @@ public struct SubscriberDataElement : Swift.Decodable {
   public func getAttributes() -> [Swift.String : Swift.String?]?
   public init(from decoder: Swift.Decoder) throws
 }
-extension MessageStatus : WingsPushSDK.MessageStatusProtocol {
+extension WingsPushSDK.MessageStatus : WingsPushSDK.MessageStatusProtocol {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<WingsPushSDK.MessageStatus>
   @objc @NSManaged dynamic public var isSentInternal: Swift.Bool {
     @objc get
@@ -159,7 +159,7 @@ extension MessageStatus : WingsPushSDK.MessageStatusProtocol {
   public class func removeFiles(at url: Foundation.URL)
   @objc deinit
 }
-extension ExtraContent : WingsPushSDK.ExtraContentProtocol {
+extension WingsPushSDK.ExtraContent : WingsPushSDK.ExtraContentProtocol {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<WingsPushSDK.ExtraContent>
   @objc @NSManaged dynamic public var messageId: Swift.String? {
     @objc get
@@ -262,12 +262,12 @@ public enum LogSeverity : Swift.String, Swift.CaseIterable {
     get
   }
 }
-extension LogSeverity : Swift.CustomStringConvertible {
+extension WingsPushSDK.LogSeverity : Swift.CustomStringConvertible {
   public var description: Swift.String {
     get
   }
 }
-extension LogSeverity : Swift.Comparable {
+extension WingsPushSDK.LogSeverity : Swift.Comparable {
 }
 public func < (lhs: WingsPushSDK.LogSeverity, rhs: WingsPushSDK.LogSeverity) -> Swift.Bool
 public protocol LogConfiguration {
@@ -277,14 +277,14 @@ public protocol LogConfiguration {
   var synchronousMode: Swift.Bool { get }
   var configurations: [WingsPushSDK.LogConfiguration]? { get }
 }
-extension LogConfiguration {
+extension WingsPushSDK.LogConfiguration {
   public var configurations: [WingsPushSDK.LogConfiguration]? {
     get
   }
 }
-extension String : Swift.Error {
+extension Swift.String : Swift.Error {
 }
-extension Archive {
+extension WingsPushSDK.Archive {
   final public var data: Foundation.Data? {
     get
   }
@@ -305,12 +305,11 @@ public struct LogChannel {
 @_hasMissingDesignatedInitializers open class SettingsUtils {
   @objc deinit
 }
-extension SettingsUtils : Foundation.NSCopying {
+extension WingsPushSDK.SettingsUtils : Foundation.NSCopying {
   @objc dynamic public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
 }
 open class XcodeLogConfiguration : WingsPushSDK.ConsoleLogConfiguration {
   public init(minimumSeverity: WingsPushSDK.LogSeverity = .info, infoMode: Swift.Bool = false, stdStreamsMode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode = .useExclusively, mimicOSLogOutput: Swift.Bool = true, showCallSite: Swift.Bool = true, filters: [WingsPushSDK.LogFilter] = [])
-  override public init(minimumSeverity: WingsPushSDK.LogSeverity = super, infoMode: Swift.Bool = super, stdStreamsMode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode = super, filters: [WingsPushSDK.LogFilter] = super, osLogFormatters: [WingsPushSDK.LogFormatter], stdoutFormatters: [WingsPushSDK.LogFormatter])
   @objc deinit
 }
 @_inheritsConvenienceInitializers @objc(ExtraContent) public class ExtraContent : CoreData.NSManagedObject {
@@ -326,7 +325,7 @@ public enum DelimiterStyle {
   case semicolon
   case custom(Swift.String)
 }
-extension DelimiterStyle {
+extension WingsPushSDK.DelimiterStyle {
   public var delimiter: Swift.String {
     get
   }
@@ -364,7 +363,7 @@ public enum SeverityStyle {
   case numeric
   case custom(textRepresentation: WingsPushSDK.SeverityStyle.TextRepresentation, truncateAtWidth: Swift.Int?, padToWidth: Swift.Int?, rightAlign: Swift.Bool)
 }
-extension SeverityStyle.TextRepresentation {
+extension WingsPushSDK.SeverityStyle.TextRepresentation {
   public func format(severity: WingsPushSDK.LogSeverity) -> Swift.String
 }
 public struct SeverityLogFormatter : WingsPushSDK.LogFormatter {
@@ -372,11 +371,11 @@ public struct SeverityLogFormatter : WingsPushSDK.LogFormatter {
   public init(style: WingsPushSDK.SeverityStyle = .simple)
   public func format(_ entry: WingsPushSDK.LogEntry) -> Swift.String?
 }
-extension FileManager {
+extension Foundation.FileManager {
   public func zipItem(at sourceURL: Foundation.URL, to destinationURL: Foundation.URL, shouldKeepParent: Swift.Bool = true, compressionMethod: WingsPushSDK.CompressionMethod = .none, progress: Foundation.Progress? = nil) throws
   public func unzipItem(at sourceURL: Foundation.URL, to destinationURL: Foundation.URL, skipCRC32: Swift.Bool = false, progress: Foundation.Progress? = nil, preferredEncoding: Swift.String.Encoding? = nil) throws
 }
-extension URL {
+extension Foundation.URL {
   public func isContained(in parentDirectoryURL: Foundation.URL) -> Swift.Bool
 }
 public enum OSLogTypeTranslator {
@@ -388,12 +387,12 @@ public enum OSLogTypeTranslator {
   case allAsDebug
   case function((WingsPushSDK.LogEntry) -> os.OSLogType)
 }
-extension OSLogType {
+extension os.OSLogType {
   public static var disabled: os.OSLogType {
     get
   }
 }
-extension Optional where Wrapped == Swift.String {
+extension Swift.Optional where Wrapped == Swift.String {
   public func containsIgnoringCase(_ find: Swift.String) -> Swift.Bool
   public func toBool() -> Swift.Bool
   public func toInt16() -> Swift.Int16?
@@ -401,14 +400,10 @@ extension Optional where Wrapped == Swift.String {
 }
 open class StandardLogFormatter : WingsPushSDK.FieldBasedLogFormatter {
   public init(timestampStyle: WingsPushSDK.TimestampStyle? = .default, severityStyle: WingsPushSDK.SeverityStyle? = .simple, delimiterStyle: WingsPushSDK.DelimiterStyle = .semicolon, callingThreadStyle: WingsPushSDK.CallingThreadStyle? = .hex, showCallSite: Swift.Bool = true)
-  override public init(fields: [WingsPushSDK.FieldBasedLogFormatter.Field], hardFail: Swift.Bool = super)
-  override public init(formatters: [WingsPushSDK.LogFormatter], hardFail: Swift.Bool = super)
   @objc deinit
 }
 open class WingsLogFormatter : WingsPushSDK.FieldBasedLogFormatter {
   public init(timestampStyle: WingsPushSDK.TimestampStyle? = .custom("yyyy-MM-dd HH:mm:ssZZZ"), severityStyle: WingsPushSDK.SeverityStyle? = .simple, delimiterStyle: WingsPushSDK.DelimiterStyle = .semicolon, callingThreadStyle: WingsPushSDK.CallingThreadStyle? = .hex, context: Swift.String? = nil, module: WingsPushSDK.LoggerModule = .sdk, showCallSite: Swift.Bool = true)
-  override public init(fields: [WingsPushSDK.FieldBasedLogFormatter.Field], hardFail: Swift.Bool = super)
-  override public init(formatters: [WingsPushSDK.LogFormatter], hardFail: Swift.Bool = super)
   @objc deinit
 }
 public enum LoggerModule : Swift.CustomStringConvertible {
@@ -433,7 +428,7 @@ public enum ReachabilityError : Swift.Error {
 }
 @available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
 public let ReachabilityChangedNotification: Foundation.NSNotification.Name
-extension NSNotification.Name {
+extension Foundation.NSNotification.Name {
   public static let reachabilityChanged: Foundation.Notification.Name
 }
 public class Reachability {
@@ -486,7 +481,7 @@ public class Reachability {
   convenience public init(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
   @objc deinit
 }
-extension Reachability {
+extension WingsPushSDK.Reachability {
   public func startNotifier() throws
   public func stopNotifier()
   @available(*, deprecated, message: "Please use `connection != .none`")
@@ -533,7 +528,7 @@ public protocol MessageAttributesProtocol {
   var messageDate: Foundation.Date? { get }
   var messageId: Swift.String? { get }
 }
-extension Channel : WingsPushSDK.ChannelProtocol {
+extension WingsPushSDK.Channel : WingsPushSDK.ChannelProtocol {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<WingsPushSDK.Channel>
   @objc @NSManaged dynamic public var name: Swift.String? {
     @objc get
@@ -544,7 +539,7 @@ extension Channel : WingsPushSDK.ChannelProtocol {
     @objc set
   }
 }
-extension Channel {
+extension WingsPushSDK.Channel {
   @objc(addMessageLinksObject:) @NSManaged dynamic public func addToMessageLinks(_ value: WingsPushSDK.Message)
   @objc(removeMessageLinksObject:) @NSManaged dynamic public func removeFromMessageLinks(_ value: WingsPushSDK.Message)
   @objc(addMessageLinks:) @NSManaged dynamic public func addToMessageLinks(_ values: Foundation.NSSet)
@@ -553,15 +548,13 @@ extension Channel {
 final public class XcodeTraceLogFormatter : WingsPushSDK.FieldBasedLogFormatter {
   public init()
   override final public func format(_ entry: WingsPushSDK.LogEntry) -> Swift.String?
-  override public init(fields: [WingsPushSDK.FieldBasedLogFormatter.Field], hardFail: Swift.Bool = super)
-  override public init(formatters: [WingsPushSDK.LogFormatter], hardFail: Swift.Bool = super)
   @objc deinit
 }
 public struct ProcessNameLogFormatter : WingsPushSDK.LogFormatter {
   public init()
   public func format(_ entry: WingsPushSDK.LogEntry) -> Swift.String?
 }
-extension MessageAttributes : WingsPushSDK.MessageAttributesProtocol {
+extension WingsPushSDK.MessageAttributes : WingsPushSDK.MessageAttributesProtocol {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<WingsPushSDK.MessageAttributes>
   @objc @NSManaged dynamic public var classifierdId: Swift.Int16 {
     @objc get
@@ -588,7 +581,7 @@ extension MessageAttributes : WingsPushSDK.MessageAttributesProtocol {
     @objc set
   }
 }
-extension MessageAttributes {
+extension WingsPushSDK.MessageAttributes {
   @objc(addMessageLinkObject:) @NSManaged dynamic public func addToMessageLink(_ value: WingsPushSDK.Message)
   @objc(removeMessageLinkObject:) @NSManaged dynamic public func removeFromMessageLink(_ value: WingsPushSDK.Message)
   @objc(addMessageLink:) @NSManaged dynamic public func addToMessageLink(_ values: Foundation.NSSet)
@@ -616,7 +609,6 @@ open class LogRecorderBase : WingsPushSDK.LogRecorder {
 open class OutputStreamLogRecorder : WingsPushSDK.LogRecorderBase {
   public init(stream: Swift.UnsafeMutablePointer<Darwin.FILE>, formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = nil)
   override open func record(message: Swift.String, for entry: WingsPushSDK.LogEntry, currentQueue: Dispatch.DispatchQueue, synchronousMode: Swift.Bool)
-  override public init(formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = super)
   @objc deinit
 }
 public struct Entry : Swift.Equatable {
@@ -651,7 +643,7 @@ public struct Entry : Swift.Equatable {
   }
   public static func == (lhs: WingsPushSDK.Entry, rhs: WingsPushSDK.Entry) -> Swift.Bool
 }
-extension Icon : WingsPushSDK.IconProtocol {
+extension WingsPushSDK.Icon : WingsPushSDK.IconProtocol {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<WingsPushSDK.Icon>
   @objc @NSManaged dynamic public var url: Swift.String? {
     @objc get
@@ -666,7 +658,7 @@ extension Icon : WingsPushSDK.IconProtocol {
     @objc set
   }
 }
-extension Icon {
+extension WingsPushSDK.Icon {
   @objc(addMessageLinksObject:) @NSManaged dynamic public func addToMessageLinks(_ value: WingsPushSDK.Message)
   @objc(removeMessageLinksObject:) @NSManaged dynamic public func removeFromMessageLinks(_ value: WingsPushSDK.Message)
   @objc(addMessageLinks:) @NSManaged dynamic public func addToMessageLinks(_ values: Foundation.NSSet)
@@ -820,25 +812,25 @@ public enum WingsPushApiStatus : Swift.String {
   @available(iOSApplicationExtension, unavailable)
   public func subscribe(deviceId: Swift.String?, clientId: Swift.String?, token: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
   @available(iOSApplicationExtension, unavailable)
-  public func unsubscribe(note: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
-  public func onMessageReceive(_ request: UserNotifications.UNNotificationRequest, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?, Swift.Error?, UserNotifications.UNMutableNotificationContent?) -> ())
-  public func onMessageReceive(messageId: Swift.String, title: Swift.String? = nil, subtitle: Swift.String? = nil, body: Swift.String? = nil, customData: [Swift.AnyHashable : Any]? = nil, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func unsubscribe(note: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func onMessageReceive(_ request: UserNotifications.UNNotificationRequest, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?, _ error: Swift.Error?, _ bestAttemptContent: UserNotifications.UNMutableNotificationContent?) -> ())
+  public func onMessageReceive(messageId: Swift.String, title: Swift.String? = nil, subtitle: Swift.String? = nil, body: Swift.String? = nil, customData: [Swift.AnyHashable : Any]? = nil, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
   @available(iOSApplicationExtension, unavailable)
-  public func onMessageRead(didReceive response: UserNotifications.UNNotificationResponse, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func onMessageRead(didReceive response: UserNotifications.UNNotificationResponse, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
   @available(iOSApplicationExtension, unavailable)
-  public func onMessageRead(messageId: Swift.String, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func onMessageRead(messageId: Swift.String, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
   @available(iOSApplicationExtension, unavailable)
-  public func updateSubscription(token: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func updateSubscription(token: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
   public func getSavedToken() -> Swift.String?
   public func getClientId() -> Swift.String?
   public func getDeviceId() -> Swift.String?
   @available(iOSApplicationExtension, unavailable)
-  public func getSubscriberData(rDeviceId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.SubscriberGetResult?) -> ()) throws
+  public func getSubscriberData(rDeviceId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.SubscriberGetResult?) -> ()) throws
   @available(iOSApplicationExtension, unavailable)
-  public func updateSubscriber(updateAddress: Swift.String?, attributes: [Swift.String : Swift.String], requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
-  public func downloadContent(messageId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.ContentDownloadResult?) -> ()) throws
+  public func updateSubscriber(updateAddress: Swift.String?, attributes: [Swift.String : Swift.String], requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func downloadContent(messageId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.ContentDownloadResult?) -> ()) throws
   @available(iOSApplicationExtension, unavailable)
-  public func getMessages(deviceId: Swift.String? = nil, requestId: Swift.String? = nil, amount: Swift.Int, dateFrom: Foundation.Date, dateTo: Foundation.Date?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.StatisticsResult?) -> ()) throws
+  public func getMessages(deviceId: Swift.String? = nil, requestId: Swift.String? = nil, amount: Swift.Int, dateFrom: Foundation.Date, dateTo: Foundation.Date?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.StatisticsResult?) -> ()) throws
   @available(iOSApplicationExtension, unavailable)
   public static func enableLogging()
   @available(iOSApplicationExtension, unavailable)
@@ -852,14 +844,14 @@ public enum WingsPushApiStatus : Swift.String {
   @available(iOSApplicationExtension, unavailable)
   public func getFetchedResultsController() -> CoreData.NSFetchedResultsController<WingsPushSDK.Message>?
   @available(iOSApplicationExtension, unavailable)
-  public func getMessageById(id: Swift.String, postCompleted: @escaping (WingsPushSDK.MessageProtocol?) -> ())
+  public func getMessageById(id: Swift.String, postCompleted: @escaping (_ messageById: WingsPushSDK.MessageProtocol?) -> ())
   @available(iOSApplicationExtension, unavailable)
   public func getMessageByPredicate(predicate: Foundation.NSPredicate) -> CoreData.NSFetchedResultsController<WingsPushSDK.Message>?
   @available(iOSApplicationExtension, unavailable)
-  public func getNotificationContent(id: Swift.String, postCompleted: @escaping (WingsPushSDK.ExtraContentProtocol?) -> ())
+  public func getNotificationContent(id: Swift.String, postCompleted: @escaping (_ result: WingsPushSDK.ExtraContentProtocol?) -> ())
   @objc deinit
 }
-extension NSNotification.Name {
+extension Foundation.NSNotification.Name {
   public static let NSPersistentContainerDidSaveExternally: Foundation.Notification.Name
 }
 @objc @_inheritsConvenienceInitializers final public class SharedPersistentContainer : CoreData.NSPersistentContainer {
@@ -913,22 +905,18 @@ open class BufferedLogRecorder<BufferItem> : WingsPushSDK.LogRecorderBase {
   public init(formatters: [WingsPushSDK.LogFormatter], bufferLimit: Swift.Int = 10_000, queue: Dispatch.DispatchQueue? = nil, createBufferItem: @escaping (WingsPushSDK.LogEntry, Swift.String) -> BufferItem)
   override open func record(message: Swift.String, for entry: WingsPushSDK.LogEntry, currentQueue: Dispatch.DispatchQueue, synchronousMode: Swift.Bool)
   public func clear()
-  override public init(formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = super)
   @objc deinit
 }
 open class BufferedMessageRecorder : WingsPushSDK.BufferedLogRecorder<Swift.String> {
   public init(formatters: [WingsPushSDK.LogFormatter], bufferLimit: Swift.Int = 10_000, queue: Dispatch.DispatchQueue? = nil)
-  override public init(formatters: [WingsPushSDK.LogFormatter], bufferLimit: Swift.Int = super, queue: Dispatch.DispatchQueue? = super, createBufferItem: @escaping (WingsPushSDK.LogEntry, Swift.String) -> Swift.String)
   @objc deinit
 }
 open class BufferedLogEntryRecorder : WingsPushSDK.BufferedLogRecorder<WingsPushSDK.LogEntry> {
   public init(formatters: [WingsPushSDK.LogFormatter], bufferLimit: Swift.Int = 10_000, queue: Dispatch.DispatchQueue? = nil)
-  override public init(formatters: [WingsPushSDK.LogFormatter], bufferLimit: Swift.Int = super, queue: Dispatch.DispatchQueue? = super, createBufferItem: @escaping (WingsPushSDK.LogEntry, Swift.String) -> WingsPushSDK.LogEntry)
   @objc deinit
 }
 open class BufferedLogEntryMessageRecorder : WingsPushSDK.BufferedLogRecorder<(WingsPushSDK.LogEntry, Swift.String)> {
   public init(formatters: [WingsPushSDK.LogFormatter], bufferLimit: Swift.Int = 10_000, queue: Dispatch.DispatchQueue? = nil)
-  override public init(formatters: [WingsPushSDK.LogFormatter], bufferLimit: Swift.Int = super, queue: Dispatch.DispatchQueue? = super, createBufferItem: @escaping (WingsPushSDK.LogEntry, Swift.String) -> (WingsPushSDK.LogEntry, Swift.String))
   @objc deinit
 }
 public let defaultReadChunkSize: Swift.UInt32
@@ -981,7 +969,7 @@ final public class Archive : Swift.Sequence {
   public typealias Element = WingsPushSDK.Entry
   public typealias Iterator = Swift.AnyIterator<WingsPushSDK.Entry>
 }
-extension Archive {
+extension WingsPushSDK.Archive {
   final public func totalUnitCountForRemoving(_ entry: WingsPushSDK.Entry) -> Swift.Int64
   final public func totalUnitCountForReading(_ entry: WingsPushSDK.Entry) -> Swift.Int64
   final public func totalUnitCountForAddingItem(at url: Foundation.URL) -> Swift.Int64
@@ -995,7 +983,6 @@ open class RotatingLogFileConfiguration : WingsPushSDK.BasicLogConfiguration {
   }
   public init(minimumSeverity: WingsPushSDK.LogSeverity, daysToKeep: Swift.Int, directoryPath: Swift.String, synchronousMode: Swift.Bool = false, filters: [WingsPushSDK.LogFilter] = [], formatters: [WingsPushSDK.LogFormatter] = [ReadableLogFormatter()])
   open func createLogDirectory() throws
-  override public init(minimumSeverity: WingsPushSDK.LogSeverity = super, filters: [WingsPushSDK.LogFilter] = super, recorders: [WingsPushSDK.LogRecorder] = super, synchronousMode: Swift.Bool = super, configurations: [WingsPushSDK.LogConfiguration]? = super)
   @objc deinit
 }
 open class ConsoleLogConfiguration : WingsPushSDK.BasicLogConfiguration {
@@ -1011,10 +998,9 @@ open class ConsoleLogConfiguration : WingsPushSDK.BasicLogConfiguration {
   }
   convenience public init(minimumSeverity: WingsPushSDK.LogSeverity = .info, infoMode: Swift.Bool = true, stdStreamsMode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode = .useAsFallback, filters: [WingsPushSDK.LogFilter] = [], formatters: [WingsPushSDK.LogFormatter])
   public init(minimumSeverity: WingsPushSDK.LogSeverity = .info, infoMode: Swift.Bool = true, stdStreamsMode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode = .useAsFallback, filters: [WingsPushSDK.LogFilter] = [], osLogFormatters: [WingsPushSDK.LogFormatter], stdoutFormatters: [WingsPushSDK.LogFormatter])
-  override public init(minimumSeverity: WingsPushSDK.LogSeverity = super, filters: [WingsPushSDK.LogFilter] = super, recorders: [WingsPushSDK.LogRecorder] = super, synchronousMode: Swift.Bool = super, configurations: [WingsPushSDK.LogConfiguration]? = super)
   @objc deinit
 }
-extension ConsoleLogConfiguration {
+extension WingsPushSDK.ConsoleLogConfiguration {
   public static func willUseOSLog(mode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode) -> Swift.Bool
   public static func shouldUseStandardStreams(mode: WingsPushSDK.ConsoleLogConfiguration.StandardStreamsMode) -> Swift.Bool
 }
@@ -1043,7 +1029,7 @@ final public class StorageMessage {
   final public func cleanup(quantityLimit: Swift.Int, daysLimit: Swift.Int)
   @objc deinit
 }
-extension StorageMessage : WingsPushSDK.StorageMessageProtocol {
+extension WingsPushSDK.StorageMessage : WingsPushSDK.StorageMessageProtocol {
   final public var mainQueueContext: CoreData.NSManagedObjectContext? {
     get
   }
@@ -1064,7 +1050,7 @@ extension StorageMessage : WingsPushSDK.StorageMessageProtocol {
   final public func icon(for url: Swift.String) -> WingsPushSDK.IconProtocol?
   final public func storeIcon(icon: WingsPushSDK.IconProtocol, messageId: Swift.String?) throws
 }
-extension NSManagedObjectContext {
+extension CoreData.NSManagedObjectContext {
   public func executeAndMergeChanges(using batchDeleteRequest: CoreData.NSBatchDeleteRequest) throws
 }
 public struct CallSiteLogFormatter : WingsPushSDK.LogFormatter {
@@ -1080,7 +1066,7 @@ public struct OSLogRecorder : WingsPushSDK.LogRecorder {
   public init?(formatters: [WingsPushSDK.LogFormatter], subsystem: Swift.String = "", logTypeTranslator: WingsPushSDK.OSLogTypeTranslator = .default, queue: Dispatch.DispatchQueue? = nil)
   public func record(message: Swift.String, for entry: WingsPushSDK.LogEntry, currentQueue: Dispatch.DispatchQueue, synchronousMode: Swift.Bool)
 }
-extension Message : WingsPushSDK.MessageProtocol {
+extension WingsPushSDK.Message : WingsPushSDK.MessageProtocol {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<WingsPushSDK.Message>
   @objc @NSManaged dynamic public var id: Swift.String? {
     @objc get
@@ -1143,7 +1129,7 @@ extension Message : WingsPushSDK.MessageProtocol {
     @objc set
   }
 }
-extension Message {
+extension WingsPushSDK.Message {
   @objc(addMessageStatusLinksObject:) @NSManaged dynamic public func addToMessageStatusLinks(_ value: WingsPushSDK.MessageStatus)
   @objc(removeMessageStatusLinksObject:) @NSManaged dynamic public func removeFromMessageStatusLinks(_ value: WingsPushSDK.MessageStatus)
   @objc(addMessageStatusLinks:) @NSManaged dynamic public func addToMessageStatusLinks(_ values: Foundation.NSSet)
@@ -1223,7 +1209,6 @@ open class RotatingLogFileRecorder : WingsPushSDK.LogRecorderBase {
   open func createLogDirectory()
   override open func record(message: Swift.String = "", for entry: WingsPushSDK.LogEntry, currentQueue: Dispatch.DispatchQueue, synchronousMode: Swift.Bool)
   open func prune()
-  override public init(formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = super)
   @objc deinit
 }
 open class FileLogRecorder : WingsPushSDK.LogRecorderBase {
@@ -1231,16 +1216,15 @@ open class FileLogRecorder : WingsPushSDK.LogRecorderBase {
   public init?(filePath: Swift.String, formatters: [WingsPushSDK.LogFormatter])
   @objc deinit
   override open func record(message: Swift.String = "", for entry: WingsPushSDK.LogEntry, currentQueue: Dispatch.DispatchQueue, synchronousMode: Swift.Bool)
-  override public init(formatters: [WingsPushSDK.LogFormatter], queue: Dispatch.DispatchQueue? = super)
 }
 public typealias CRC32 = Swift.UInt32
-public typealias Consumer = (Foundation.Data) throws -> Swift.Void
-public typealias Provider = (Swift.Int, Swift.Int) throws -> Foundation.Data
+public typealias Consumer = (_ data: Foundation.Data) throws -> Swift.Void
+public typealias Provider = (_ position: Swift.Int, _ size: Swift.Int) throws -> Foundation.Data
 public let crcTable: [Swift.UInt32]
-extension Data {
+extension Foundation.Data {
   public func crc32(checksum: WingsPushSDK.CRC32) -> WingsPushSDK.CRC32
-  public static func compress(size: Swift.Int, bufferSize: Swift.Int, provider: (Swift.Int, Swift.Int) throws -> Foundation.Data, consumer: (Foundation.Data) throws -> Swift.Void) throws -> WingsPushSDK.CRC32
-  public static func decompress(size: Swift.Int, bufferSize: Swift.Int, skipCRC32: Swift.Bool, provider: (Swift.Int, Swift.Int) throws -> Foundation.Data, consumer: (Foundation.Data) throws -> Swift.Void) throws -> WingsPushSDK.CRC32
+  public static func compress(size: Swift.Int, bufferSize: Swift.Int, provider: (_ position: Swift.Int, _ size: Swift.Int) throws -> Foundation.Data, consumer: (_ data: Foundation.Data) throws -> Swift.Void) throws -> WingsPushSDK.CRC32
+  public static func decompress(size: Swift.Int, bufferSize: Swift.Int, skipCRC32: Swift.Bool, provider: (_ position: Swift.Int, _ size: Swift.Int) throws -> Foundation.Data, consumer: (_ data: Foundation.Data) throws -> Swift.Void) throws -> WingsPushSDK.CRC32
 }
 public protocol StorageMessageProtocol {
   var mainQueueContext: CoreData.NSManagedObjectContext? { get }
@@ -1259,9 +1243,9 @@ public protocol StorageMessageProtocol {
   func extraContent(for messageId: Swift.String) -> WingsPushSDK.ExtraContentProtocol?
   func storeExtraContent(content: WingsPushSDK.ExtraContentProtocol) throws
 }
-extension Archive {
+extension WingsPushSDK.Archive {
   final public func extract(_ entry: WingsPushSDK.Entry, to url: Foundation.URL, bufferSize: Swift.UInt32 = defaultReadChunkSize, skipCRC32: Swift.Bool = false, progress: Foundation.Progress? = nil) throws -> WingsPushSDK.CRC32
-  final public func extract(_ entry: WingsPushSDK.Entry, bufferSize: Swift.UInt32 = defaultReadChunkSize, skipCRC32: Swift.Bool = false, progress: Foundation.Progress? = nil, consumer: (Foundation.Data) throws -> Swift.Void) throws -> WingsPushSDK.CRC32
+  final public func extract(_ entry: WingsPushSDK.Entry, bufferSize: Swift.UInt32 = defaultReadChunkSize, skipCRC32: Swift.Bool = false, progress: Foundation.Progress? = nil, consumer: (_ data: Foundation.Data) throws -> Swift.Void) throws -> WingsPushSDK.CRC32
 }
 public protocol MessageStatusExternalProtocol {
   var statusName: Swift.String? { get set }
@@ -1269,7 +1253,7 @@ public protocol MessageStatusExternalProtocol {
   var isSent: Swift.Bool { get set }
   var messageId: Swift.String? { get set }
 }
-extension Status : WingsPushSDK.StatusProtocol {
+extension WingsPushSDK.Status : WingsPushSDK.StatusProtocol {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<WingsPushSDK.Status>
   @objc @NSManaged dynamic public var name: Swift.String? {
     @objc get
@@ -1284,13 +1268,13 @@ extension Status : WingsPushSDK.StatusProtocol {
     @objc set
   }
 }
-extension Status {
+extension WingsPushSDK.Status {
   @objc(addMessageLinksObject:) @NSManaged dynamic public func addToMessageLinks(_ value: WingsPushSDK.Message)
   @objc(removeMessageLinksObject:) @NSManaged dynamic public func removeFromMessageLinks(_ value: WingsPushSDK.Message)
   @objc(addMessageLinks:) @NSManaged dynamic public func addToMessageLinks(_ values: Foundation.NSSet)
   @objc(removeMessageLinks:) @NSManaged dynamic public func removeFromMessageLinks(_ values: Foundation.NSSet)
 }
-extension Status {
+extension WingsPushSDK.Status {
   @objc(addMessageStatusLinksObject:) @NSManaged dynamic public func addToMessageStatusLinks(_ value: WingsPushSDK.MessageStatus)
   @objc(removeMessageStatusLinksObject:) @NSManaged dynamic public func removeFromMessageStatusLinks(_ value: WingsPushSDK.MessageStatus)
   @objc(addMessageStatusLinks:) @NSManaged dynamic public func addToMessageStatusLinks(_ values: Foundation.NSSet)
