@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
+// swift-compiler-version: Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name WingsPushSDK
 import Compression
 import CoreData
@@ -94,7 +94,7 @@ public struct LogSettings {
 }
 @objc @_inheritsConvenienceInitializers open class LogManager : ObjectiveC.NSObject {
   public static var utils: WingsPushSDK.LoggingUtils?
-  open class var logRecorder: WingsPushSDK.RotatingLogFileRecorder? {
+  open class var logRecorder: WingsPushSDK.RotatingLogFileRecorder {
     get
   }
   open class func enableLogging()
@@ -976,6 +976,12 @@ extension WingsPushSDK.Archive {
 }
 public protocol ChannelProtocol {
   var name: Swift.String? { get }
+}
+@objc final public class Watchdog : ObjectiveC.NSObject {
+  @objc public static let defaultThreshold: Swift.Double
+  @objc convenience public init(threshold: Swift.Double = Watchdog.defaultThreshold, strictMode: Swift.Bool = false)
+  @objc public init(threshold: Swift.Double = Watchdog.defaultThreshold, watchdogFiredCallback: @escaping () -> Swift.Void)
+  @objc deinit
 }
 open class RotatingLogFileConfiguration : WingsPushSDK.BasicLogConfiguration {
   open var directoryPath: Swift.String {
