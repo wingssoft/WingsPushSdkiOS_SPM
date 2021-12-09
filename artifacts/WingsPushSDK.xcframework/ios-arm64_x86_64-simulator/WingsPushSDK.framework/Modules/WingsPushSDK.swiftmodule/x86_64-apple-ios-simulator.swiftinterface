@@ -723,11 +723,15 @@ final public class XcodeLogFormatter : WingsPushSDK.LogFormatter {
   @objc deinit
 }
 public func getThreadNubmer() -> Swift.UInt64
-public enum WingsPushSDKError : Swift.Error {
+public enum WingsPushSDKError : Swift.Error, Swift.CustomStringConvertible {
   case settingNotFound(settingName: Swift.String)
   case invalidParameter(parameterName: Swift.String)
   case emptyMandatoryParameter(parameterName: Swift.String)
   case invalidUrl(url: Swift.String)
+  case errorGenerateUUID(reason: Swift.String)
+  public var description: Swift.String {
+    get
+  }
 }
 public protocol SettingReceiver {
   func getProtocolType() -> Swift.String?

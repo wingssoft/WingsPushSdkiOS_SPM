@@ -22,11 +22,11 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		F2f9h6C+a8GO/mzXkdRpJyDJmpE=
+		9GfLRZId1NssU13ne1A/C+0qZ7I=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		SE+v21LV5vd2zd+eN8l7RgtUDQw=
+		+9snVM8iiK0/0JE0qunsYOsnRK4=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftinterface</key>
 		<data>
-		F2f9h6C+a8GO/mzXkdRpJyDJmpE=
+		9GfLRZId1NssU13ne1A/C+0qZ7I=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		SE+v21LV5vd2zd+eN8l7RgtUDQw=
+		+9snVM8iiK0/0JE0qunsYOsnRK4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -88,14 +88,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Qx3ySxphDguJruj6ytEXlG39o6w2EGwc3WA7XuYmDko=
+			gWIrFN83qrzaXx5k6PmBe2VPpAso5sC2BH5R7Hnd7pM=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dZsOlTqgcUb6Tasy45K9eyvVBhtA6o/wFLOVydahIf4=
+			9HHsLfwdE2Dy6SSoALvuJ6OZl3PUT9R84/5+NAiYbnU=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftdoc</key>
@@ -109,14 +109,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Qx3ySxphDguJruj6ytEXlG39o6w2EGwc3WA7XuYmDko=
+			gWIrFN83qrzaXx5k6PmBe2VPpAso5sC2BH5R7Hnd7pM=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dZsOlTqgcUb6Tasy45K9eyvVBhtA6o/wFLOVydahIf4=
+			9HHsLfwdE2Dy6SSoALvuJ6OZl3PUT9R84/5+NAiYbnU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
