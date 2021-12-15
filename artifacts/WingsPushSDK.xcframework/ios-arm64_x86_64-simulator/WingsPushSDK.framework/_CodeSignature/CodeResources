@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		eJ+fTJISd2PbVSMEyWOmdfhBajY=
+		35dvo46XNxiJhnT+fs9pud2bwac=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		0QOlkQAW2EZcNYa9QaBanskJenc=
+		D5SKGMuivH9OolRLGf+WAie2frQ=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		0QOlkQAW2EZcNYa9QaBanskJenc=
+		D5SKGMuivH9OolRLGf+WAie2frQ=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		Ha0/hLiHDvN8buFspFf9b4ChMnw=
+		cpld7Y29CtJg1n6XeQRmurocWo0=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -62,7 +62,7 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		Ha0/hLiHDvN8buFspFf9b4ChMnw=
+		cpld7Y29CtJg1n6XeQRmurocWo0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -119,7 +119,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			s2Df5c+k888bL1jVcwxD+9B9LhrLjvmG2l+4Zb8eY1g=
+			tk0aW2WQx/K4jzU+y/3lkV7lkoc38q4RHCce5EBEzAU=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64.swiftdoc</key>
@@ -140,7 +140,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			s2Df5c+k888bL1jVcwxD+9B9LhrLjvmG2l+4Zb8eY1g=
+			tk0aW2WQx/K4jzU+y/3lkV7lkoc38q4RHCce5EBEzAU=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -161,7 +161,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Tu7e3HSmlspWCiA2BrmLWd0ICKv/2frsBlPKUZc+Ubs=
+			70sa6BfbuXnWH0dd2UPW3rMzmOM0mUEFtDpAis1It+Y=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64.swiftdoc</key>
@@ -182,7 +182,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Tu7e3HSmlspWCiA2BrmLWd0ICKv/2frsBlPKUZc+Ubs=
+			70sa6BfbuXnWH0dd2UPW3rMzmOM0mUEFtDpAis1It+Y=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
