@@ -133,6 +133,23 @@ https://github.com/wingssoft/WingsPushSdkiOS_SPM.git
         }
     }
     ```
+    или же с помощью метода selfCheck (рекомендуется)
+    
+    ```
+    let sdk = try PushSDK.getInstance(identifier: identifier, settingsReceivers: [mySettingReceiver], headerManager: myHeaderManager)
+    if let sdk = sdk {
+        sdk.selfCheck(withDeviceId: deviceId, clientId: clientId, token: token) {(response: BaseApiResult?) -> () in
+            if let response = response {
+                if response.getResultKind() == .success {
+                    //on success
+                } else {
+                    //on error
+                    print("Error on subscribe: \(response.getErrorCode()): \(String(describing: response.getErrorDescription()))")
+                }
+            }
+        }
+    }
+    ```
     , где
     - `deviceId` - идентификатор устройства
     - `clientId` - идентификатор клиента
@@ -193,7 +210,7 @@ https://github.com/wingssoft/WingsPushSdkiOS_SPM.git
                         }
                     }
                 } else {
-                    sdk.subscribe(deviceId: deviceId, clientId: clientId, token: token) {(response: BaseApiResult?) -> () in
+                    sdk.selfCheck(withDeviceId: deviceId, clientId: clientId, token: token) {(response: BaseApiResult?) -> () in
                         if let response = response {
                             if response.getResultKind() == .success {
                                 //on success
