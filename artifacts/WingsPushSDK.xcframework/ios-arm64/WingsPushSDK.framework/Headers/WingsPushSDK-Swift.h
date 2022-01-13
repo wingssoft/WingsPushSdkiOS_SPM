@@ -191,6 +191,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreData;
 @import Foundation;
 @import ObjectiveC;
+@import UIKit;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -248,18 +249,6 @@ SWIFT_CLASS("_TtC12WingsPushSDK21ContentDownloadResult")
 @end
 
 
-/// This class exists due to the easy and intuitive way of using public keys generated outside iOS in
-/// the Security framework and CommonCrypto tools (yes, I’m being sarcastic here).
-/// CryptoCertificateImportManager is in charge of importing a certificate and obtaining a valid key
-/// reference to use in any of SecKey operations (SecKeyEncrypt, SecKeyRawVerify…).
-/// As far as I know, any other way of importing and using public keys from the outside is not
-/// advised: https://devforums.apple.com/message/301532#301532
-SWIFT_CLASS("_TtC12WingsPushSDK25CryptoExportImportManager")
-@interface CryptoExportImportManager : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 SWIFT_CLASS_NAMED("ExtraContent")
 @interface ExtraContent : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
@@ -311,12 +300,6 @@ SWIFT_CLASS_NAMED("Icon")
 @end
 
 
-SWIFT_CLASS("_TtC12WingsPushSDK10LogManager")
-@interface LogManager : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 SWIFT_CLASS_NAMED("LoggingUtils")
 @interface LoggingUtils : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -343,6 +326,7 @@ SWIFT_CLASS_NAMED("Message")
 @end
 
 @class NSNumber;
+@class MessageAttributes;
 
 SWIFT_PROTOCOL("_TtP12WingsPushSDK15MessageProtocol_")
 @protocol MessageProtocol
@@ -365,10 +349,11 @@ SWIFT_PROTOCOL("_TtP12WingsPushSDK15MessageProtocol_")
 @property (nonatomic, readonly, copy) NSDate * _Nullable statusDate;
 /// Channel name + SET wraper for tied entity Channel.name ??? Should we ??? should.
 @property (nonatomic, copy) NSString * _Nullable channelName;
+@property (nonatomic, strong) Icon * _Nullable iconLink;
+@property (nonatomic, strong) MessageAttributes * _Nullable messageAttributesLink;
 @end
 
 @class Status;
-@class MessageAttributes;
 
 @interface Message (SWIFT_EXTENSION(WingsPushSDK)) <MessageProtocol>
 @property (nonatomic, copy) NSString * _Nullable id;
@@ -437,12 +422,6 @@ SWIFT_CLASS_NAMED("PushSDK")
 @end
 
 
-SWIFT_CLASS_NAMED("PushUtils")
-@interface PushUtils : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 SWIFT_CLASS_NAMED("SettingsUtils")
 @interface SettingsUtils : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -464,11 +443,6 @@ SWIFT_CLASS("_TtC12WingsPushSDK25SharedPersistentContainer")
 @end
 
 
-@interface SharedPersistentContainer (SWIFT_EXTENSION(WingsPushSDK))
-/// Called when a certain managed object context has been saved from an external process. It should also be called on the context’s queue.
-- (void)viewContextDidSaveExternally;
-@end
-
 
 SWIFT_CLASS("_TtC12WingsPushSDK16StatisticsResult")
 @interface StatisticsResult : NSObject
@@ -484,18 +458,18 @@ SWIFT_CLASS_NAMED("Status")
 
 
 @interface Status (SWIFT_EXTENSION(WingsPushSDK))
-- (void)addMessageStatusLinksObject:(MessageStatus * _Nonnull)value;
-- (void)removeMessageStatusLinksObject:(MessageStatus * _Nonnull)value;
-- (void)addMessageStatusLinks:(NSSet * _Nonnull)values;
-- (void)removeMessageStatusLinks:(NSSet * _Nonnull)values;
-@end
-
-
-@interface Status (SWIFT_EXTENSION(WingsPushSDK))
 - (void)addMessageLinksObject:(Message * _Nonnull)value;
 - (void)removeMessageLinksObject:(Message * _Nonnull)value;
 - (void)addMessageLinks:(NSSet * _Nonnull)values;
 - (void)removeMessageLinks:(NSSet * _Nonnull)values;
+@end
+
+
+@interface Status (SWIFT_EXTENSION(WingsPushSDK))
+- (void)addMessageStatusLinksObject:(MessageStatus * _Nonnull)value;
+- (void)removeMessageStatusLinksObject:(MessageStatus * _Nonnull)value;
+- (void)addMessageStatusLinks:(NSSet * _Nonnull)values;
+- (void)removeMessageStatusLinks:(NSSet * _Nonnull)values;
 @end
 
 
@@ -511,6 +485,13 @@ SWIFT_CLASS("_TtC12WingsPushSDK19SubscriberGetResult")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+@class UIResponder;
+
+@interface UIApplication (SWIFT_EXTENSION(WingsPushSDK))
+@property (nonatomic, readonly, strong) UIResponder * _Nullable nextResponder;
+@end
+
 
 
 
