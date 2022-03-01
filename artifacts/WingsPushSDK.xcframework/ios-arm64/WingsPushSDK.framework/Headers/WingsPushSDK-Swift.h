@@ -496,12 +496,6 @@ SWIFT_CLASS("_TtC12WingsPushSDK19SubscriberGetResult")
 
 
 
-SWIFT_CLASS("_TtC12WingsPushSDK11UUIDManager")
-@interface UUIDManager : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 
 /// Class for logging excessive blocking on the main thread.
 SWIFT_CLASS("_TtC12WingsPushSDK8Watchdog")
