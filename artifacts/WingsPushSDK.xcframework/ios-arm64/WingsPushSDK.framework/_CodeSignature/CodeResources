@@ -6,35 +6,43 @@
 	<dict>
 		<key>Headers/WingsPushSDK-Swift.h</key>
 		<data>
-		zRsPoR4bpFGZwbkdNsVWmD8payE=
+		FK6cyv3rVH8yTMo70dtZewlMqDk=
 		</data>
 		<key>Headers/WingsPushSDK.h</key>
 		<data>
-		7hpBayiJa+ktGyG01fjBBxj+LBg=
+		nxOhvj9hRDz2crcUmOWDuEDDlGM=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		+a8oRMgm0SOMErTjEdOZGHQB1oE=
+		NpF51Pjt1KYC2zrWnWt5L0w4uMM=
+		</data>
+		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.abi.json</key>
+		<data>
+		XljYwfEMMkx2yiSiXeRZQikkqRI=
+		</data>
+		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<data>
+		I9WUKJw81CqBufH9P8CxmbJsO1o=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		qTmgbixxTpOpwFzFzGTMAn8Kmco=
+		ANDHTICNwyIUQpCC1wTAdQJA1Mg=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		6rAuJqJw9WYroZh+PMUsyEFpLs0=
+		I9WUKJw81CqBufH9P8CxmbJsO1o=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		kdWVAOKfGIx1b0RrcQeDlnDU8N8=
+		sRCxJLIYRicXdYHVhd5wJNHj+jo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		K4uFFBEg2CVD7Js7iJxpVtQyOsk=
+		S7rOq/ZbcrYPApj0lne/5Wa/ChE=
 		</data>
 		<key>StorageModel.momd/StorageModel 2.mom</key>
 		<data>
-		LziBlJVWw3Cbm5zGJ7v3vAMS944=
+		kIQtya4akcIOvI2pYZ4H7Gv4xTo=
 		</data>
 		<key>StorageModel.momd/StorageModel 2.omo</key>
 		<data>
@@ -42,7 +50,7 @@
 		</data>
 		<key>StorageModel.momd/StorageModel.mom</key>
 		<data>
-		N+EqY/K0VoZ+ybsIp2JE6y+e+mg=
+		1d+AqZTv0xpxtHzbVNWzn3VZd6I=
 		</data>
 		<key>StorageModel.momd/VersionInfo.plist</key>
 		<data>
@@ -55,49 +63,63 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ndL3TeuCxXERLu087oFU1z0zh/fELmJe8Q0jmImM0tQ=
+			VAKYM5iinh2J6jZDAZjBv4LDrixg9I8OqyliZw1k+1A=
 			</data>
 		</dict>
 		<key>Headers/WingsPushSDK.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xksXkG00MXYho585+e0UZXafrbk9hTbJsKxRlWb522E=
+			TntujxWBhaEG959XaC6LQMTManCZ2o+SvCyN4QkhDXw=
+			</data>
+		</dict>
+		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.abi.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZY0Zleb9rkI0W0j2nc08dpJ2EU3XpeMukX982q0c6vk=
+			</data>
+		</dict>
+		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FwtvqKcaPmDQqI/u+LXbT/DFLTT+ttk3MhknS8Ba4AQ=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ROXhNm9U5ftLKiu6iCxb1c307bqKa4RpgOTzaCQZh44=
+			UdD8g1e1OkY7ou6j5kb8WdhVYkPlVboK+9/mtzO+htc=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8aWPsP8ACJTg/mfcboY79Bzbq4VNP07GJ6uDKvaERhY=
+			FwtvqKcaPmDQqI/u+LXbT/DFLTT+ttk3MhknS8Ba4AQ=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VxXXJ/aYT7DGyAKfMol0zxgHmQExbarnDfO0VH3a+qE=
+			cRUxwkxYIva5eMAfyVanWyJFMxfdEscRHf6nkiPfujA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9SDDPjwbSfUZuBkBrNTSni0heOsWDIkNcUyiiLO18q8=
+			q5XVJu2I6yACM4eAAyUceBrRyDWYR96jV6GaPAB9wEM=
 			</data>
 		</dict>
 		<key>StorageModel.momd/StorageModel 2.mom</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wGpVkGIJhd08HyzzQZ3nK8VwR3MVP7yuFVXWtPJKP1I=
+			o3R8hDmqEdJz5zibmCwuG7r5Nk9us14K/kmv2TS2yMc=
 			</data>
 		</dict>
 		<key>StorageModel.momd/StorageModel 2.omo</key>
@@ -111,7 +133,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0Hv1fCjeMFGU7l996xikhQot5SJRPJ1wfBm1NyhocqE=
+			VWFymlSqN4scCa2yvndbBf8k3M/JNxRZnPHpcnFLiUQ=
 			</data>
 		</dict>
 		<key>StorageModel.momd/VersionInfo.plist</key>
