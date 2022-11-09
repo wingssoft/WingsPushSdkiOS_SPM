@@ -6,6 +6,6 @@ framework module WingsPushSDK {
 }
 
 module WingsPushSDK.Swift {
-    header "WingsPushSDK-Swift.h"
-    requires objc
+  header "WingsPushSDK-Swift.h"
+  requires objc
 }
