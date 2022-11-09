@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)
+// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
 // swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name WingsPushSDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Combine
@@ -9,9 +9,11 @@ import CommonCrypto/*.CC_MD5_DIGEST_LENGTH*/
 import Compression
 import CoreData
 import CoreFoundation
+import CoreLocation
 import Darwin
 import Dispatch
 import Foundation
+import MapKit
 import MobileCoreServices
 import ObjectiveC
 import Security
@@ -235,6 +237,7 @@ public struct SubscriberDataElement : Swift.Decodable {
   public func getOsVersion() -> Swift.String?
   public func getVendorInfo() -> Swift.String?
   public func getAttributes() -> [Swift.String : Swift.String?]?
+  public func getGeofencingDBUpdateDate() -> Swift.String?
   public init(from decoder: Swift.Decoder) throws
 }
 extension WingsPushSDK.MessageStatus : WingsPushSDK.MessageStatusProtocol {
@@ -492,6 +495,93 @@ public struct SwiftAsyncUDPSocketReceiveFilter {
 }
 extension Swift.String : Swift.Error {
 }
+public enum WingsPushSDKError : Swift.Error, Swift.CustomStringConvertible {
+  case settingNotFound(settingName: Swift.String)
+  case invalidParameter(parameterName: Swift.String)
+  case emptyMandatoryParameter(parameterName: Swift.String)
+  case invalidUrl(url: Swift.String)
+  case errorGenerateUUID(reason: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+}
+public protocol SettingReceiver {
+  func getProtocolType() -> Swift.String?
+  func getServerAddress() -> Swift.String?
+  func getServerPort() -> Swift.String?
+  func getServerContext() -> Swift.String?
+  func getServerLogin() -> Swift.String?
+  func getServerPassword() -> Swift.String?
+  func getLogServerProtocolType() -> Swift.String?
+  func getLogServerAddress() -> Swift.String?
+  func getLogServerPort() -> Swift.String?
+  func getLogServerContext() -> Swift.String?
+  func getSharedAppGroup() -> Swift.String?
+  func getSilenceDuplicates() -> Swift.String?
+  func getClientId() -> Swift.String?
+  func getDeviceId() -> Swift.String?
+  func getToken() -> Swift.String?
+  func getStorageQuantityLimit() -> Swift.String?
+  func getStorageDaysLimit() -> Swift.String?
+}
+public class PushSDKv1SettingReceiver : WingsPushSDK.SettingReceiver {
+  public init(identifier: Swift.String?, removeAfterReceive: Swift.Bool = true)
+  public func getProtocolType() -> Swift.String?
+  public func getServerAddress() -> Swift.String?
+  public func getServerPort() -> Swift.String?
+  public func getServerContext() -> Swift.String?
+  public func getServerLogin() -> Swift.String?
+  public func getServerPassword() -> Swift.String?
+  public func getLogServerProtocolType() -> Swift.String?
+  public func getLogServerAddress() -> Swift.String?
+  public func getLogServerPort() -> Swift.String?
+  public func getLogServerContext() -> Swift.String?
+  public func getSharedAppGroup() -> Swift.String?
+  public func getSilenceDuplicates() -> Swift.String?
+  public func getClientId() -> Swift.String?
+  public func getDeviceId() -> Swift.String?
+  public func getToken() -> Swift.String?
+  public func getStorageDaysLimit() -> Swift.String?
+  public func getStorageQuantityLimit() -> Swift.String?
+  @objc deinit
+}
+public struct ServerParams {
+  public init(protocolType: Swift.String, serverURL: Swift.String, serverPort: Swift.Int, context: Swift.String?)
+}
+public struct StorageParams {
+  public init(quantityLimit: Swift.Int?, daysLimit: Swift.Int?)
+}
+public enum ApiMethods : Swift.CustomStringConvertible {
+  case subscribe
+  case unsubscribe
+  case notifications
+  case updateSubscriber
+  case downloadContent
+  case getSubscriberData
+  case statistics
+  case messages
+  case geofencing
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: WingsPushSDK.ApiMethods, b: WingsPushSDK.ApiMethods) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum WingsPushApiStatus : Swift.String {
+  case delivered
+  case read
+  case deferred
+  case transmitted
+  case rejected
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
 extension WingsPushSDK.SwiftAsyncSocket {
   public func connect(toHost host: Swift.String, onPort port: Swift.UInt16, viaInterface interface: Swift.String? = nil, timeOut: Foundation.TimeInterval = -1) throws
   public func connect(toAddress: Foundation.Data, viaInterface interface: Swift.String? = nil, timeout: Foundation.TimeInterval = -1) throws
@@ -630,6 +720,15 @@ extension Foundation.FileManager {
 }
 extension Foundation.URL {
   public func isContained(in parentDirectoryURL: Foundation.URL) -> Swift.Bool
+}
+public protocol SwizzlingInjection : AnyObject {
+  static func inject()
+}
+extension UIKit.UIApplication : WingsPushSDK.SwizzlingInjection {
+  @_Concurrency.MainActor(unsafe) public static func inject()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var next: UIKit.UIResponder? {
+    @objc get
+  }
 }
 @objc public class CocoaMQTT5Message : ObjectiveC.NSObject {
   public var qos: WingsPushSDK.CocoaMQTTQoS
@@ -1053,92 +1152,6 @@ extension WingsPushSDK.SwiftAsyncUDPSocket {
   public func bind(to interface: Swift.String? = nil, port: Swift.UInt16) throws
   public func bind(to address: Foundation.Data) throws
 }
-public enum WingsPushSDKError : Swift.Error, Swift.CustomStringConvertible {
-  case settingNotFound(settingName: Swift.String)
-  case invalidParameter(parameterName: Swift.String)
-  case emptyMandatoryParameter(parameterName: Swift.String)
-  case invalidUrl(url: Swift.String)
-  case errorGenerateUUID(reason: Swift.String)
-  public var description: Swift.String {
-    get
-  }
-}
-public protocol SettingReceiver {
-  func getProtocolType() -> Swift.String?
-  func getServerAddress() -> Swift.String?
-  func getServerPort() -> Swift.String?
-  func getServerContext() -> Swift.String?
-  func getServerLogin() -> Swift.String?
-  func getServerPassword() -> Swift.String?
-  func getLogServerProtocolType() -> Swift.String?
-  func getLogServerAddress() -> Swift.String?
-  func getLogServerPort() -> Swift.String?
-  func getLogServerContext() -> Swift.String?
-  func getSharedAppGroup() -> Swift.String?
-  func getSilenceDuplicates() -> Swift.String?
-  func getClientId() -> Swift.String?
-  func getDeviceId() -> Swift.String?
-  func getToken() -> Swift.String?
-  func getStorageQuantityLimit() -> Swift.String?
-  func getStorageDaysLimit() -> Swift.String?
-}
-public class PushSDKv1SettingReceiver : WingsPushSDK.SettingReceiver {
-  public init(identifier: Swift.String?, removeAfterReceive: Swift.Bool = true)
-  public func getProtocolType() -> Swift.String?
-  public func getServerAddress() -> Swift.String?
-  public func getServerPort() -> Swift.String?
-  public func getServerContext() -> Swift.String?
-  public func getServerLogin() -> Swift.String?
-  public func getServerPassword() -> Swift.String?
-  public func getLogServerProtocolType() -> Swift.String?
-  public func getLogServerAddress() -> Swift.String?
-  public func getLogServerPort() -> Swift.String?
-  public func getLogServerContext() -> Swift.String?
-  public func getSharedAppGroup() -> Swift.String?
-  public func getSilenceDuplicates() -> Swift.String?
-  public func getClientId() -> Swift.String?
-  public func getDeviceId() -> Swift.String?
-  public func getToken() -> Swift.String?
-  public func getStorageDaysLimit() -> Swift.String?
-  public func getStorageQuantityLimit() -> Swift.String?
-  @objc deinit
-}
-public struct ServerParams {
-  public init(protocolType: Swift.String, serverURL: Swift.String, serverPort: Swift.Int, context: Swift.String?)
-}
-public struct StorageParams {
-  public init(quantityLimit: Swift.Int?, daysLimit: Swift.Int?)
-}
-public enum ApiMethods : Swift.CustomStringConvertible {
-  case subscribe
-  case unsubscribe
-  case notifications
-  case updateSubscriber
-  case downloadContent
-  case getSubscriberData
-  case statistics
-  case messages
-  public var description: Swift.String {
-    get
-  }
-  public static func == (a: WingsPushSDK.ApiMethods, b: WingsPushSDK.ApiMethods) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public enum WingsPushApiStatus : Swift.String {
-  case delivered
-  case read
-  case deferred
-  case transmitted
-  case rejected
-  public init?(rawValue: Swift.String)
-  public typealias RawValue = Swift.String
-  public var rawValue: Swift.String {
-    get
-  }
-}
 @_hasMissingDesignatedInitializers @objc(PushSDK) public class PushSDK : ObjectiveC.NSObject {
   public static var WingsPushSDKVersion: Swift.String {
     get
@@ -1150,46 +1163,7 @@ public enum WingsPushApiStatus : Swift.String {
   public static func createInstance(identifier: Swift.String, sharedAppGroup: Swift.String, pushServerParams: WingsPushSDK.ServerParams, login: Swift.String, password: Swift.String, logServerParams: WingsPushSDK.ServerParams?, silenceDuplicates: Swift.Bool = true, storageParams: WingsPushSDK.StorageParams? = nil) throws
   public static func getInstance(identifier: Swift.String, settingReceivers: [WingsPushSDK.SettingReceiver]? = nil, headerManager: WingsPushSDK.HttpRequestAdditionalHeaderManager? = nil) throws -> WingsPushSDK.PushSDK
   public static func getInstance(identifier: Swift.String, with headerManager: WingsPushSDK.HttpRequestAdditionalHeaderManager? = nil, settingsReceivers: [WingsPushSDK.SettingReceiver]? = nil) throws -> WingsPushSDK.PushSDK
-  @available(iOSApplicationExtension, unavailable)
-  public func selfCheck(withDeviceId deviceId: Swift.String, clientId: Swift.String, token: Swift.String?, requestTimeout: Swift.Double? = nil, _ postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
-  @available(iOSApplicationExtension, unavailable)
-  public func subscribe(deviceId: Swift.String?, clientId: Swift.String?, token: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
-  @available(iOSApplicationExtension, unavailable)
-  public func unsubscribe(note: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
-  public func onMessageReceive(_ request: UserNotifications.UNNotificationRequest, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?, _ error: Swift.Error?, _ bestAttemptContent: UserNotifications.UNMutableNotificationContent?) -> ())
-  public func onMessageReceive(messageId: Swift.String, title: Swift.String? = nil, subtitle: Swift.String? = nil, body: Swift.String? = nil, customData: [Swift.AnyHashable : Any]? = nil, trackData: [Swift.AnyHashable : Any]? = nil, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
-  @available(iOSApplicationExtension, unavailable)
-  public func onMessageRead(didReceive response: UserNotifications.UNNotificationResponse, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
-  @available(iOSApplicationExtension, unavailable)
-  public func onMessageRead(messageId: Swift.String, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
-  @available(iOSApplicationExtension, unavailable)
-  public func updateSubscription(token: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
-  public func getSavedToken() -> Swift.String?
-  public func getClientId() -> Swift.String?
-  public func getDeviceId() -> Swift.String?
-  @available(iOSApplicationExtension, unavailable)
-  public func getSubscriberData(rDeviceId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.SubscriberGetResult?) -> ()) throws
-  @available(iOSApplicationExtension, unavailable)
-  public func updateSubscriber(updateAddress: Swift.String?, attributes: [Swift.String : Swift.String], requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
-  public func downloadContent(messageId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.ContentDownloadResult?) -> ()) throws
-  @available(iOSApplicationExtension, unavailable)
-  public func getMessages(deviceId: Swift.String? = nil, requestId: Swift.String? = nil, amount: Swift.Int, dateFrom: Foundation.Date, dateTo: Foundation.Date?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.StatisticsResult?) -> ()) throws
   public func sendLogs()
-  @available(iOSApplicationExtension, unavailable)
-  public func removeAllMessages()
-  @available(iOSApplicationExtension, unavailable)
-  public func removeMessage(by id: Swift.String)
-  @available(iOSApplicationExtension, unavailable)
-  public func removeMessages(predicate: Foundation.NSPredicate)
-  @available(iOSApplicationExtension, unavailable)
-  public func getFetchedResultsController() -> CoreData.NSFetchedResultsController<WingsPushSDK.Message>?
-  @available(iOSApplicationExtension, unavailable)
-  public func getMessageById(id: Swift.String, postCompleted: @escaping (_ messageById: WingsPushSDK.MessageProtocol?) -> ())
-  @available(iOSApplicationExtension, unavailable)
-  public func getMessage(by messageId: Swift.String, postCompleted: @escaping (_ messageById: WingsPushSDK.Message?) -> ())
-  @available(iOSApplicationExtension, unavailable)
-  public func getMessageByPredicate(predicate: Foundation.NSPredicate) -> CoreData.NSFetchedResultsController<WingsPushSDK.Message>?
-  public func getNotificationContent(id: Swift.String, postCompleted: @escaping (_ result: WingsPushSDK.ExtraContentProtocol?) -> ())
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers public class MqttConnectProperties : ObjectiveC.NSObject {
@@ -1256,6 +1230,23 @@ extension WingsPushSDK.CocoaMQTTSocket : WingsPushSDK.SwiftAsyncSocketDelegate {
   public func socket(_ socket: WingsPushSDK.SwiftAsyncSocket, didWriteDataWith tag: Swift.Int)
   public func socket(_ socket: WingsPushSDK.SwiftAsyncSocket, didRead data: Foundation.Data, with tag: Swift.Int)
   public func socket(_ socket: WingsPushSDK.SwiftAsyncSocket?, didDisconnectWith error: WingsPushSDK.SwiftAsyncSocketError?)
+}
+extension WingsPushSDK.PushSDK {
+  @available(iOSApplicationExtension, unavailable)
+  public func removeAllMessages()
+  @available(iOSApplicationExtension, unavailable)
+  public func removeMessage(by id: Swift.String)
+  @available(iOSApplicationExtension, unavailable)
+  public func removeMessages(predicate: Foundation.NSPredicate)
+  @available(iOSApplicationExtension, unavailable)
+  public func getFetchedResultsController() -> CoreData.NSFetchedResultsController<WingsPushSDK.Message>?
+  @available(iOSApplicationExtension, unavailable)
+  public func getMessageById(id: Swift.String, postCompleted: @escaping (_ messageById: WingsPushSDK.MessageProtocol?) -> ())
+  @available(iOSApplicationExtension, unavailable)
+  public func getMessage(by messageId: Swift.String, postCompleted: @escaping (_ messageById: WingsPushSDK.Message?) -> ())
+  @available(iOSApplicationExtension, unavailable)
+  public func getMessageByPredicate(predicate: Foundation.NSPredicate) -> CoreData.NSFetchedResultsController<WingsPushSDK.Message>?
+  public func getNotificationContent(id: Swift.String, postCompleted: @escaping (_ result: WingsPushSDK.ExtraContentProtocol?) -> ())
 }
 extension WingsPushSDK.SwiftAsyncSocket {
   public func write(data: Foundation.Data, timeOut: Foundation.TimeInterval, tag: Swift.Int)
@@ -1682,6 +1673,38 @@ extension WingsPushSDK.StorageMessage : WingsPushSDK.StorageMessageProtocol {
 extension CoreData.NSManagedObjectContext {
   public func executeAndMergeChanges(using batchDeleteRequest: CoreData.NSBatchDeleteRequest) throws
 }
+@objc public class GeofencingResult : ObjectiveC.NSObject, Swift.Codable {
+  public init(resultKind: WingsPushSDK.ResultKind, errorCode: Swift.Int, errorDescription: Swift.String?, moreGeozonesForSent: Swift.Bool, geozones: [WingsPushSDK.Geozone])
+  required public init(from decoder: Swift.Decoder) throws
+  public func getResultKind() -> WingsPushSDK.ResultKind
+  public func getErrorCode() -> Swift.Int
+  public func getErrorDescription() -> Swift.String?
+  public func getGeozones() -> [WingsPushSDK.Geozone]
+  public func isMoreGeozonesForSent() -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Geozone : Swift.Codable {
+  public var geozoneId: Swift.String
+  public var name: Swift.String
+  public var coordinates: Swift.String
+  public var radius: Swift.String
+  public var expireDate: Swift.String
+  public var delayInside: Swift.String?
+  public var content: Swift.String?
+  public var messageIdEnter: WingsPushSDK.MessageItem?
+  public var messageIdExit: WingsPushSDK.MessageItem?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public static var all: [WingsPushSDK.Geozone] {
+    get
+  }
+}
+extension CoreLocation.CLLocationCoordinate2D {
+  public var description: Swift.String {
+    get
+  }
+}
 @objc @_inheritsConvenienceInitializers public class MqttDecodePubRel : ObjectiveC.NSObject {
   public var reasonCode: WingsPushSDK.CocoaMQTTPUBRELReasonCode?
   public var msgid: Swift.UInt16
@@ -2081,6 +2104,32 @@ public enum CocoaMQTTLoggerLevel : Swift.Int {
     get
   }
 }
+extension WingsPushSDK.PushSDK {
+  @available(iOSApplicationExtension, unavailable)
+  public func selfCheck(withDeviceId deviceId: Swift.String, clientId: Swift.String, token: Swift.String?, requestTimeout: Swift.Double? = nil, _ postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
+  @available(iOSApplicationExtension, unavailable)
+  public func subscribe(deviceId: Swift.String?, clientId: Swift.String?, token: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (WingsPushSDK.BaseApiResult?) -> ()) throws
+  @available(iOSApplicationExtension, unavailable)
+  public func unsubscribe(note: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func onMessageReceive(_ request: UserNotifications.UNNotificationRequest, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?, _ error: Swift.Error?, _ bestAttemptContent: UserNotifications.UNMutableNotificationContent?) -> ())
+  public func onMessageReceive(messageId: Swift.String, title: Swift.String? = nil, subtitle: Swift.String? = nil, body: Swift.String? = nil, customData: [Swift.AnyHashable : Any]? = nil, trackData: [Swift.AnyHashable : Any]? = nil, with defaultAddress: Swift.String? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  @available(iOSApplicationExtension, unavailable)
+  public func onMessageRead(didReceive response: UserNotifications.UNNotificationResponse, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  @available(iOSApplicationExtension, unavailable)
+  public func onMessageRead(messageId: Swift.String, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  @available(iOSApplicationExtension, unavailable)
+  public func updateSubscription(token: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func getSavedToken() -> Swift.String?
+  public func getClientId() -> Swift.String?
+  public func getDeviceId() -> Swift.String?
+  @available(iOSApplicationExtension, unavailable)
+  public func getSubscriberData(rDeviceId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.SubscriberGetResult?) -> ()) throws
+  @available(iOSApplicationExtension, unavailable)
+  public func updateSubscriber(updateAddress: Swift.String?, attributes: [Swift.String : Swift.String], requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.BaseApiResult?) -> ()) throws
+  public func downloadContent(messageId: Swift.String?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.ContentDownloadResult?) -> ()) throws
+  @available(iOSApplicationExtension, unavailable)
+  public func getMessages(deviceId: Swift.String? = nil, requestId: Swift.String? = nil, amount: Swift.Int, dateFrom: Foundation.Date, dateTo: Foundation.Date?, requestTimeout: Swift.Double? = nil, postCompleted: @escaping (_ response: WingsPushSDK.StatisticsResult?) -> ()) throws
+}
 @_inheritsConvenienceInitializers @objc(Message) public class Message : CoreData.NSManagedObject {
   public func setup(message: WingsPushSDK.MessageProtocol)
   public func setupAttributes(attributes: WingsPushSDK.MessageAttributesProtocol)
@@ -2105,6 +2154,11 @@ extension WingsPushSDK.SwiftAsyncUDPSocketAddress.Types : Swift.Hashable {}
 extension WingsPushSDK.CocoaMQTTConnAck : Swift.Equatable {}
 extension WingsPushSDK.CocoaMQTTConnAck : Swift.Hashable {}
 extension WingsPushSDK.CocoaMQTTConnAck : Swift.RawRepresentable {}
+extension WingsPushSDK.ApiMethods : Swift.Equatable {}
+extension WingsPushSDK.ApiMethods : Swift.Hashable {}
+extension WingsPushSDK.WingsPushApiStatus : Swift.Equatable {}
+extension WingsPushSDK.WingsPushApiStatus : Swift.Hashable {}
+extension WingsPushSDK.WingsPushApiStatus : Swift.RawRepresentable {}
 extension WingsPushSDK.CocoaMQTTPropertyName : Swift.Equatable {}
 extension WingsPushSDK.CocoaMQTTPropertyName : Swift.Hashable {}
 extension WingsPushSDK.CocoaMQTTPropertyName : Swift.RawRepresentable {}
@@ -2119,11 +2173,6 @@ extension WingsPushSDK.Entry.EntryType : Swift.RawRepresentable {}
 extension WingsPushSDK.ResultKind : Swift.Equatable {}
 extension WingsPushSDK.ResultKind : Swift.Hashable {}
 extension WingsPushSDK.ResultKind : Swift.RawRepresentable {}
-extension WingsPushSDK.ApiMethods : Swift.Equatable {}
-extension WingsPushSDK.ApiMethods : Swift.Hashable {}
-extension WingsPushSDK.WingsPushApiStatus : Swift.Equatable {}
-extension WingsPushSDK.WingsPushApiStatus : Swift.Hashable {}
-extension WingsPushSDK.WingsPushApiStatus : Swift.RawRepresentable {}
 extension WingsPushSDK.CocoaMQTTConnState : Swift.Equatable {}
 extension WingsPushSDK.CocoaMQTTConnState : Swift.Hashable {}
 extension WingsPushSDK.CocoaMQTTConnState : Swift.RawRepresentable {}
