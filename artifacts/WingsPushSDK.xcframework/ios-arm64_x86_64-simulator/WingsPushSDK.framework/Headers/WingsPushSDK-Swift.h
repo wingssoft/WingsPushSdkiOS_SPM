@@ -234,7 +234,6 @@ using UInt = size_t;
 @import Foundation;
 @import ObjectiveC;
 @import Security;
-@import UIKit;
 #endif
 
 #endif
@@ -376,10 +375,10 @@ SWIFT_CLASS("_TtC12WingsPushSDK17CocoaMQTT5Message")
 @end
 
 
+
 @interface CocoaMQTT5Message (SWIFT_EXTENSION(WingsPushSDK))
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
-
 
 typedef SWIFT_ENUM(uint8_t, CocoaMQTTAUTHReasonCode, open) {
   CocoaMQTTAUTHReasonCodeSuccess = 0x00,
@@ -510,10 +509,10 @@ SWIFT_CLASS("_TtC12WingsPushSDK16CocoaMQTTMessage")
 @end
 
 
+
 @interface CocoaMQTTMessage (SWIFT_EXTENSION(WingsPushSDK))
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
-
 
 typedef SWIFT_ENUM(uint8_t, CocoaMQTTPUBACKReasonCode, open) {
   CocoaMQTTPUBACKReasonCodeSuccess = 0x00,
@@ -1003,12 +1002,6 @@ SWIFT_CLASS("_TtC12WingsPushSDK19SwiftAsyncUDPSocket")
 
 
 
-
-@class UIResponder;
-
-@interface UIApplication (SWIFT_EXTENSION(WingsPushSDK))
-@property (nonatomic, readonly, strong) UIResponder * _Nullable nextResponder;
-@end
 
 
 
@@ -1296,7 +1289,6 @@ using UInt = size_t;
 @import Foundation;
 @import ObjectiveC;
 @import Security;
-@import UIKit;
 #endif
 
 #endif
@@ -1438,10 +1430,10 @@ SWIFT_CLASS("_TtC12WingsPushSDK17CocoaMQTT5Message")
 @end
 
 
+
 @interface CocoaMQTT5Message (SWIFT_EXTENSION(WingsPushSDK))
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
-
 
 typedef SWIFT_ENUM(uint8_t, CocoaMQTTAUTHReasonCode, open) {
   CocoaMQTTAUTHReasonCodeSuccess = 0x00,
@@ -1572,10 +1564,10 @@ SWIFT_CLASS("_TtC12WingsPushSDK16CocoaMQTTMessage")
 @end
 
 
+
 @interface CocoaMQTTMessage (SWIFT_EXTENSION(WingsPushSDK))
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
-
 
 typedef SWIFT_ENUM(uint8_t, CocoaMQTTPUBACKReasonCode, open) {
   CocoaMQTTPUBACKReasonCodeSuccess = 0x00,
@@ -2065,12 +2057,6 @@ SWIFT_CLASS("_TtC12WingsPushSDK19SwiftAsyncUDPSocket")
 
 
 
-
-@class UIResponder;
-
-@interface UIApplication (SWIFT_EXTENSION(WingsPushSDK))
-@property (nonatomic, readonly, strong) UIResponder * _Nullable nextResponder;
-@end
 
 
 
