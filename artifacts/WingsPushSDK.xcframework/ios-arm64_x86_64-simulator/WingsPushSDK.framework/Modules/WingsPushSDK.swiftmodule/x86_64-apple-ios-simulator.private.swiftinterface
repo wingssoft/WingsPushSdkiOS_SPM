@@ -721,15 +721,6 @@ extension Foundation.FileManager {
 extension Foundation.URL {
   public func isContained(in parentDirectoryURL: Foundation.URL) -> Swift.Bool
 }
-public protocol SwizzlingInjection : AnyObject {
-  static func inject()
-}
-extension UIKit.UIApplication : WingsPushSDK.SwizzlingInjection {
-  @_Concurrency.MainActor(unsafe) public static func inject()
-  @_Concurrency.MainActor(unsafe) @objc override dynamic open var next: UIKit.UIResponder? {
-    @objc get
-  }
-}
 @objc public class CocoaMQTT5Message : ObjectiveC.NSObject {
   public var qos: WingsPushSDK.CocoaMQTTQoS
   public var topic: Swift.String

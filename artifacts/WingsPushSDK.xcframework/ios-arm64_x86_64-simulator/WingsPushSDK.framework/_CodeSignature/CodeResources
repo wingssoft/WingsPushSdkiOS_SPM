@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/WingsPushSDK-Swift.h</key>
 		<data>
-		9PG7i8sWA6l7mC2JAPy+pUTGVKs=
+		0SHqAsRlAnGTrqJkt6jrYoTGHEo=
 		</data>
 		<key>Headers/WingsPushSDK.h</key>
 		<data>
@@ -14,15 +14,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		yobwRRqVrxeM6WieJGzD1FOK3k0=
+		C56B+EqINn/PKltws92kRoGb6Lc=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		3opS0kEWUj6ZrFiHj/IgWI14wOU=
+		B3tMf7E55katZ0mziVFYwdytywM=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		F9w6pTqRPfX64SI0DTF+WFA+PPg=
+		chHTGExX8MGMjlDwVLa82T/euow=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -30,19 +30,19 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		F9w6pTqRPfX64SI0DTF+WFA+PPg=
+		chHTGExX8MGMjlDwVLa82T/euow=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		SKq7LLWlrIs/KKT46H/tamicJO0=
+		8txwPpMj87/DXIFEiPTByVCrZAg=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		3opS0kEWUj6ZrFiHj/IgWI14wOU=
+		B3tMf7E55katZ0mziVFYwdytywM=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		skH+w2hFLYjNdGMUnXIM/ctS6VE=
+		DRJTqf2geVoDiIlzFGtlq5Jz5kc=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -50,11 +50,11 @@
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		skH+w2hFLYjNdGMUnXIM/ctS6VE=
+		DRJTqf2geVoDiIlzFGtlq5Jz5kc=
 		</data>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		A90k/1mTJ63/5ah4urTFUs97YOI=
+		/dpVFjMD9Yct+s7ZRZS3x023Cfo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -83,7 +83,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1JoUpF8hf//pUu5j0V1oDrOtDbH0FHkpOYIKUbvO5fI=
+			F4X/6mYgTTfGNEolbD37wL+8hKGAX6kEht4qE+hI/iw=
 			</data>
 		</dict>
 		<key>Headers/WingsPushSDK.h</key>
@@ -97,14 +97,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vu/lS6Et28cRc6SGwlnr7gU84zuvesn2deB19JlRnDs=
+			6Pup86P5vtIx9hymrsqIB5IZ0V5Dt/HiaE7a3DWM3B8=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vpFZrbVOsEU6YOra1tIfTHBinjIEh24ETHkYk4UUSSE=
+			CUFfQYkqpOyGHHa6Z7+qt5EMnLbvCm3CbfzK0iqyB2o=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -118,28 +118,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vpFZrbVOsEU6YOra1tIfTHBinjIEh24ETHkYk4UUSSE=
+			CUFfQYkqpOyGHHa6Z7+qt5EMnLbvCm3CbfzK0iqyB2o=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hXuTx85qijIgFs8PYJrW2xysEdfdD9yIKR+TcDmYbVc=
+			Ptz0MjynD7N11cG1N56sMTCqfkaxAzE9PoKD56JZCpw=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vu/lS6Et28cRc6SGwlnr7gU84zuvesn2deB19JlRnDs=
+			6Pup86P5vtIx9hymrsqIB5IZ0V5Dt/HiaE7a3DWM3B8=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+s6gdQ5ekvvQVGYKp3SIRRMFykGlCcoPSAZm3lmFKU4=
+			Ak/ssZxeeyE+GX3IccTC9z66Is52HbPdzHN3aAQkQYE=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -153,14 +153,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+s6gdQ5ekvvQVGYKp3SIRRMFykGlCcoPSAZm3lmFKU4=
+			Ak/ssZxeeyE+GX3IccTC9z66Is52HbPdzHN3aAQkQYE=
 			</data>
 		</dict>
 		<key>Modules/WingsPushSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pUp1e8tP3Hsik5/4RM/JYjsLkYvGFb5AKcXlNDCsDNY=
+			ek6R1RYl/4aR0ZG7MmiMohx/oxvOZUY0LCzp4OwPxKg=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
