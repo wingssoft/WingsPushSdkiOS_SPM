@@ -1,0 +1,11 @@
+framework module OrgPushSDK {
+  umbrella header "OrgPushSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module OrgPushSDK.Swift {
+  header "OrgPushSDK-Swift.h"
+  requires objc
+}
