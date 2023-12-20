@@ -24,34 +24,9 @@
 
 ### Добавление зависимости в проект:
 
-1.  Через cocoapods
-
-SDK добавляется через pod зависимость, как в основное приложение, так и в extension
-
-```
-platform :ios, '11.0'
-source 'https://bitbucket.org/wings-solutions/push-sdk-podspec.git'
-source 'https://github.com/CocoaPods/Specs.git'
-
-target 'NotificationContentService' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for NotificationContentService
-  pod 'WingsPushSDK', '~> 2.0'
-end
-target 'PushApp' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for PushApp
-  pod 'WingsPushSDK', '~> 2.3'
-end
-```
-
-2.  Путем добавления в проект файла WingsPushSDK.xcframework
+1.  Путем добавления в проект файла WingsPushSDK.xcframework
     
-3.  Через Swift Package Manager
+2.  Через Swift Package Manager
 
 ```
 https://github.com/wingssoft/WingsPushSdkiOS_SPM.git
